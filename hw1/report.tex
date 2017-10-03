@@ -1,0 +1,112 @@
+\documentclass[12t, a4paper]{article}
+\usepackage{CJKutf8}
+\usepackage[left=2cm, right=2cm, top=3cm, bottom=2.5cm]{geometry}
+\usepackage[nodayofweek,level]{datetime}
+\usepackage{comment}
+
+%..This section controls the header-footer layout of the document
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Computer Network (NTU CSIE, Fall 2017)}
+\chead{}
+\rhead{Homework \#1}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%..This section controls the title layout
+\title{\vspace{-4ex}\bf{\LARGE{Homework \#1}}} 
+\author{資工三\space B04902009\space蕭千惠} % \footnote{blablabla} 
+\date{\vspace{-2ex}\today\vspace{-6ex}}
+%{\formatdate{21}{2}{2017}}
+
+%.. Customize section numbering
+\renewcommand\thesubsection{(\arabic{subsection})}
+\usepackage{color}
+
+%.. Insert graph
+\usepackage{graphicx}
+% \includegraphics[width=\textwidth, height=10cm, keepaspectratio=true]{pic.jpg}
+
+%.. indent
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+%.. hyperlink / url
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+%%\url{url}
+%%\herf{url}{words to show}
+
+%.. change font size
+\usepackage{type1cm}
+
+%.. change enumerate label
+\usepackage{enumitem}
+%%\begin{enumerate}[label=(\alph*)]  //(a) (b) (c)
+%%\begin{enumerate}[label=(\Alph*)]  //(A) (B) (C)
+%%\begin{enumerate}[label=(\roman*)] //(i) (ii) (iii`')
+
+%.. define tab
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+
+%.. Content
+\begin{document}
+	\begin{CJK}{UTF8}{bkai}
+	\maketitle\thispagestyle{fancy}
+	\fontsize{12pt}{16pt} \selectfont
+	% \noindent
+	% \centerline{\includegraphics[width=15cm, keepaspectratio=true]{s.png}} \par
+	
+	\section*{Program structure}
+		\begin{enumerate}
+		\item
+			Robot(client) connet to irc.freenode.net(server) via the socket.
+		\item
+			Set client's username, hostname, servername and realname on irc.freenode.net.
+		\item
+			Join \#CN\_Demo channel.
+		\item
+			Receive message from the server and check if the message contains {\bf'@'} symbol. \par
+			If so, check if it is \texttt{@repeat <Message>}, \texttt{@convert <Number>} or \texttt{@ip <String>} and do the corresponding implemtation.
+		\item
+			Close the socket.
+		\end{enumerate}
+
+	\section*{Challenge \& Solution}
+		\begin{enumerate}
+		\item
+			Client can't join a channel immediately after connect to the server. \par
+			$\rightarrow$ Use \texttt{USER <username> <hostname> <servername> <realname>} and \texttt{NICK <nickname>} command to finish the setting of user before joining a channel.
+		\item 
+			Receving error message {\bf Nickname is already in use}. \par
+			$\rightarrow$ Change the nickname (\texttt{nick = nick + str(time.time())}) and use \texttt{NICK <nickname>} command to set nickname again.
+		\item
+			When client receiving messages from the server, '\textbackslash r\textbackslash n' appears in the end of every message, causing problems in the implementation of \texttt{@ip} and \texttt{@convert} command.\\
+			$\rightarrow$ Remove '\textbackslash r\textbackslash n' before doing implementation.
+		\item
+			When the valid IPv4 address of the string in \texttt{@ip <String>} command is too many, error message like {\bf Message to \#CN\_DEMO throttled due to flooding} may occur.\par
+			$\rightarrow$ It is cause by sending too many private messages to the server in a period of time. To solve this problem, sleep for 1 seconds after sending a message to the server.
+		\item
+			Quit with error message: {\bf Ping timeout XXX seconds} \par
+			$\rightarrow$ When receiving {\bf PING} from the server, send {\bf PONG} back.
+		% \item
+		% 	Race condition.
+			% :eiffel1448!~eiffel142@140.112.16.129 PRIVMSG #CN_DEMO :@convert 123456778
+			% :eiffel1448!~eiffel142@140.112.16.129 PRIVMSG #CN_DEMO :@convert 123456778
+			% :eiffel1448!~eiffel142@140.112.16.129 PRIVMSG #CN_DEMO :@convert 123456778
+		\end{enumerate}
+		
+	\section*{Reflections}
+		This homework is quit simple. However, we still have to be concerned with some details metioned above. Also, some errors may occur when there are multiple users in a channel, such as race condition. To handle such problems, more efforts are required.
+		
+	
+	\clearpage
+	\end{CJK}
+\end{document}
