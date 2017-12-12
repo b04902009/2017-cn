@@ -1,0 +1,20 @@
+IP & Port:
+	sender:
+		ip: 127.0.0.1
+		port: 5000
+	agent:
+		ip: 127.0.0.1
+		port: 5001
+	receiver:
+		ip: 127.0.0.1
+		port: 5002
+
+Command:
+	./sender <agent_ip> <agent_port> <read_file_path>
+	./agent <sender_ip> <sender_port> <receiver_ip> <receiver_port>
+	./receiver <agent_ip> <agent_port> <write_file_path>
+
+Example:
+	./sender 127.0.0.1 5001 file.txt
+	./agent 127.0.0.1 5000 127.0.0.1 5002 0.2
+	./receiver 127.0.0.1 5001 output.txt

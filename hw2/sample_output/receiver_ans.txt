@@ -1,0 +1,22 @@
+recv	data	#1
+send	ack	#1
+recv	data	#2
+send	ack	#2
+recv	data	#3
+send	ack	#3
+drop	data	#5
+send	ack	#3
+drop	data	#6
+send	ack	#3
+recv	data	#4
+send	ack	#4
+recv	data	#5
+send	ack	#5
+drop	data	#6
+send	ack	#5
+flush
+recv	data	#6
+send	ack	#6
+recv	fin
+send	finack
+flush
