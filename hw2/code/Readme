@@ -10,6 +10,7 @@ IP & Port:
 		port: 5002
 
 Command:
+	make
 	./sender <agent_ip> <agent_port> <read_file_path>
 	./agent <sender_ip> <sender_port> <receiver_ip> <receiver_port>
 	./receiver <agent_ip> <agent_port> <write_file_path>
