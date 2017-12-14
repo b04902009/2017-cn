@@ -1,0 +1,42 @@
+get	data	#1
+fwd	data	#1	loss rate = 0.0000
+get	ack	#1
+fwd	ack	#1
+get	data	#2
+fwd	data	#2	loss rate = 0.0000
+get	data	#3
+fwd	data	#3	loss rate = 0.0000
+get	ack	#2
+fwd	ack	#2
+get	ack	#3
+fwd	ack	#3
+get	data	#4
+drop	data	#4	loss rate = 0.2500
+get	data	#5
+fwd	data	#5	loss rate = 0.2000
+get	data	#6
+fwd	data	#6	loss rate = 0.1667
+get	ack	#3
+fwd	ack	#3
+get	ack	#3
+fwd	ack	#3
+get	data	#4
+fwd	data	#4	loss rate = 0.1429
+get	ack	#4
+fwd	ack	#4
+get	data	#5
+fwd	data	#5	loss rate = 0.1250
+get	data	#6
+fwd	data	#6	loss rate = 0.1111
+get	ack	#5
+fwd	ack	#5
+get	ack	#5
+fwd	ack	#5
+get	data	#6
+fwd	data	#6	loss rate = 0.1000
+get	ack	#6
+fwd	ack	#6
+get	fin
+fwd	fin
+get	finack
+fwd	finack
