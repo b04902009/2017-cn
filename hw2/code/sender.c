@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){ // agent_ip, agent_port, file_path
     // Initialization
     int threshold = 16, winsize = 1, acked_seq_num = 0, result, end = 0;
 	Packet p;
-	int send_max_seq = 0, last_seq;
+	int send_max_seq = 0, last_seq = -1;
 
 	while(1){
 		// Send packets
@@ -73,9 +73,8 @@ int main(int argc, char *argv[]){ // agent_ip, agent_port, file_path
 		// Receive packets
 		int recv_num = 0;
 		while(acked_seq_num != window_upper_bound){
-		// for(int i = 0; i < old_winsize; i++){
 			// When ACKed all packets, send FIN and receive FINACK 
-			if(acked_seq_num == last_seq && last_seq){
+			if(acked_seq_num == last_seq && last_seq != -1){
 				end = 1;
 				p.type = FIN;
 				if(send_packet(socket_fd, &p, &agent))
