@@ -26,8 +26,10 @@ int main(int argc, char *argv[]){ // agent_ip, agent_port, file_path
 	// Select: timeout in 1 seconds
 	fd_set input_set;
 	struct timeval timeout;
-	timeout.tv_sec = 1;				// wait 1 seconds
-    timeout.tv_usec = 0;			// 		0 milliseconds
+	// timeout.tv_sec = 1;				// wait 1 seconds
+	// timeout.tv_usec = 0;				// 		0 milliseconds
+	timeout.tv_sec = 0;
+	timeout.tv_usec = 100;
     int ready_for_reading = 0;
 
     // Initialization

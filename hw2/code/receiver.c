@@ -48,7 +48,8 @@ int main(int argc, char *argv[]){ // agent_ip, agent_port, file_path
 				if(p.seq_num == acked_seq_num + 1){
 					acked_seq_num++;
 					printf("recv\tdata\t#%d\n", p.seq_num);
-					strcpy(buf[num].data, p.data);
+					for(int i = 0; i < p.data_len; i++)
+						buf[num].data[i] = p.data[i];
 					buf[num].data_len = p.data_len;
 					num++;
 				}
